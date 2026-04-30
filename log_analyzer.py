@@ -2,9 +2,12 @@ import re
 from collections import Counter
 
 def analyze_log(file_path):
-    # Pattern to find "Failed password" errors (standard in Linux servers)
+    """
+    Parses a log file to identify potential brute force attacks.
+    It looks for 'Failed password' entries and counts occurrences per IP.
+    """
+    # Standard regex pattern for failed login attempts in Linux systems
     failed_login_pattern = r"Failed password for .* from ([\d\.]+) port"
-    
     failed_ips = []
 
     try:
@@ -12,26 +15,25 @@ def analyze_log(file_path):
             for line in f:
                 match = re.search(failed_login_pattern, line)
                 if match:
-                    # Extract the IP address that attempted the login
+                    # Append the IP address found in the match
                     failed_ips.append(match.group(1))
         
-        # Count occurrences for each IP
-        counts = Counter(failed_ips)
+        # Analyze results
+        ip_counts = Counter(failed_ips)
         
-        print("--- Security Log Analysis Report ---")
+        print("\n--- Security Log Analysis Report ---")
         if not failed_ips:
-            print("[✅] No suspicious failed logins detected.")
+            print("[INFO] No suspicious login attempts detected.")
         else:
-            print("[🚨] Suspicious activity detected!")
-            for ip, count in counts.items():
-                if count > 3: # Flag as alert if more than 3 failures
-                    print(f"ALERT: IP {ip} failed login {count} times (Potential Brute Force)")
+            for ip, count in ip_counts.items():
+                if count > 3:
+                    print(f"[🚨 ALERT] IP {ip}: {count} failed attempts. Possible Brute Force.")
                 else:
-                    print(f"Info: IP {ip} failed login {count} times")
+                    print(f"[i] IP {ip}: {count} failed attempts.")
                     
     except FileNotFoundError:
-        print("[!] Error: Log file not found.")
+        print("[!] Error: The specified log file was not found.")
 
 if __name__ == "__main__":
-    # Pointing to the samples directory
+    # Ensure the path points to your samples folder
     analyze_log("samples/server_access.log")
