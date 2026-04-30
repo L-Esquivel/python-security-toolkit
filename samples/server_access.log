@@ -1,0 +1,6 @@
+May 10 09:00:05 server sshd[1234]: Failed password for root from 192.168.1.50 port 22 ssh2
+May 10 09:00:07 server sshd[1234]: Failed password for root from 192.168.1.50 port 22 ssh2
+May 10 09:00:09 server sshd[1234]: Failed password for root from 192.168.1.50 port 22 ssh2
+May 10 09:00:11 server sshd[1234]: Failed password for root from 192.168.1.50 port 22 ssh2
+May 10 09:05:00 server sshd[1235]: Failed password for admin from 45.12.33.10 port 22 ssh2
+May 10 09:10:00 server sshd[1236]: Accepted password for l-esquivel from 10.0.0.5 port 22 ssh2
