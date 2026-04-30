@@ -35,4 +35,4 @@ def analyze_log(file_path):
 # --- Ejemplo de uso ---
 if __name__ == "__main__":
     # Simulación: En un entorno real, aquí pondrías la ruta al log del servidor
-    analyze_log("server_access.log")
+    analyze_log("samples/server_access.log")
